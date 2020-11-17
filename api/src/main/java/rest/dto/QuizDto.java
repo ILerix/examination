@@ -1,23 +1,25 @@
 package rest.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import rest.dto.types.UserType;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserWithoutQuestion {
+public class QuizDto {
 
   private UUID id;
 
-  private ZonedDateTime registrationDate;
+  private String title;
 
-  private UserType type;
+  private ZonedDateTime createDate;
 
+  private List<QuestionDto> questions;
 }

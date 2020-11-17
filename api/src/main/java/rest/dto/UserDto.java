@@ -3,6 +3,7 @@ package rest.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import rest.dto.types.UserType;
 
 import java.time.ZonedDateTime;
 import java.util.List;

@@ -3,11 +3,10 @@ package testing.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import testing.core.entity.User;
+import testing.core.entity.Quiz;
 
 import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
-
+public interface QuizRepository extends JpaRepository<Quiz, UUID> {
 }
