@@ -24,8 +24,6 @@ public class User {
   @GeneratedValue
   private UUID id;
 
-  private Integer externalId;
-
   @CreationTimestamp
   private ZonedDateTime registrationDate;
 

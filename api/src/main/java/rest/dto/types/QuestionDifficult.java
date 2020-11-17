@@ -1,4 +1,4 @@
-package rest.dto;
+package rest.dto.types;
 
 public enum QuestionDifficult {
   EASY,
