@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testing
+    username: postgres
+    password: sa
+telegram:
+  token: 1472903954:AAFadlgfjWIV0EVmJDL6FHWnmRsX7wHVpWo
+  name: TestingQuestionBot
