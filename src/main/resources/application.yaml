@@ -9,7 +9,3 @@ spring:
     password: sa
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/quizdb
-
-telegram:
-  name: TestingQuestionBot
-  token: 1472903954:AAFadlgfjWIV0EVmJDL6FHWnmRsX7wHVpWo
