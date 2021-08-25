@@ -1,2 +1,12 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
 # Project exclude paths
 /target/
