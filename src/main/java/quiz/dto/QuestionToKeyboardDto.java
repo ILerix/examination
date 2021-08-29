@@ -1,19 +1,26 @@
 package quiz.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import quiz.event.Response;
 
 import java.util.List;
 
 
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionToKeyboardDto {
+@EqualsAndHashCode(callSuper = false)
+public class QuestionToKeyboardDto extends Response {
 
     private String text;
 
     private List<AnswerDto> answers;
+
+    private Boolean isCorrect;
+
+    @Builder.Default
+    private boolean isEnded = false;
 
 }

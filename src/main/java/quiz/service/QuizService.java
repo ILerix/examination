@@ -9,14 +9,15 @@ import quiz.dto.AnswerDto;
 import quiz.dto.QuestionToKeyboardDto;
 import quiz.dto.QuizKitInfo;
 import quiz.dto.ResultStatsDto;
-import quiz.entity.*;
+import quiz.entity.Answer;
+import quiz.entity.Question;
+import quiz.entity.QuizKit;
+import quiz.entity.Session;
 import quiz.repositories.*;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 @Service
@@ -57,24 +58,6 @@ public class QuizService {
         answerRepository.save(answer4);
         answerRepository.save(answer5);
         answerRepository.save(answer6);
-
-//        long count = questionRepository.count();
-//        Set<Long> idxs = new HashSet<>(kit1.getQuestionCount());
-//        while (idxs.size() != kit1.getQuestionCount()) {
-//            idxs.add(ThreadLocalRandom.current().nextLong(count));
-//        }
-//        List<Long> idxsList = new ArrayList<>(idxs);
-//        Map<Integer, Long> nums = IntStream.range(0, idxsList.size()).boxed()
-//                .collect(Collectors.toMap(i -> i, idxsList::get));
-//
-//        nums.forEach((i, value) -> {
-//            Question question = questionRepository.findAll(PageRequest.of(value.intValue(), 1)).getContent().get(0);
-//            detailRepository.save(QuizKitDetail.builder()
-//                    .quizKitId(kit1.getId())
-//                    .questionId(question.getId())
-//                    .questionNo(i)
-//                    .build());
-//        });
     }
 
     public ResultStatsDto getResultInfo(Long chatId) {
@@ -97,7 +80,7 @@ public class QuizService {
                 .map(kit -> new QuizKitInfo(kit.getDescription(), kit.getKitNo(), kit.getQuestionCount()));
     }
 
-    public Page<QuizKitInfo> movePage(Long chatId, boolean isNext) {
+    public List<QuizKitInfo> movePage(Long chatId, boolean isNext) {
         Session session = sessionRepository.findByChatId(chatId).get();
         int newPageNo = isNext ? session.getCurrentPageNo() + 1 : session.getCurrentPageNo() - 1;
 
@@ -111,7 +94,7 @@ public class QuizService {
 
         session.setCurrentPageNo(newPageNo);
         sessionRepository.save(session);
-        return page;
+        return page.getContent();
     }
 
     @Transactional
@@ -141,7 +124,7 @@ public class QuizService {
                 .map(answer -> new AnswerDto(answer.getText(), answer.getIsCorrect()))
                 .collect(Collectors.toList());
 
-        return new QuestionToKeyboardDto(question.getDescription(), answers);
+        return new QuestionToKeyboardDto(question.getDescription(), answers, null, false);
     }
 
     @Transactional
