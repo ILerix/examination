@@ -36,8 +36,8 @@ public class Session {
     @Column(name = "correct_answered")
     private Integer correctAnswered;
 
-    @Column(name = "incorrect_answered")
-    private Integer inCorrectAnswered;
+    @Column(name = "wrong_answered")
+    private Integer wrongAnswered;
 
     @Column(name = "is_random_order")
     private Boolean isRandomOrder;

@@ -9,8 +9,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRem
 import quiz.dto.QuestionToKeyboardDto;
 import quiz.dto.ResultStatsDto;
 import quiz.event.AnswerToQuestionEvent;
+import quiz.service.SessionService;
 import quiz.utils.KeyboardHelper;
-import quiz.service.QuizService;
+import quiz.service.impl.QuizKitServiceImpl;
 import quiz.utils.MessageBuilder;
 
 
@@ -18,7 +19,8 @@ import quiz.utils.MessageBuilder;
 @RequiredArgsConstructor
 public class AnswerEventListener implements EventListener<AnswerToQuestionEvent, QuestionToKeyboardDto> {
 
-    private final QuizService service;
+    private final QuizKitServiceImpl quizKitService;
+    private final SessionService sessionService;
     private final MessageBuilder messageBuilder;
     private final KeyboardHelper keyboardHelper;
 
@@ -31,8 +33,8 @@ public class AnswerEventListener implements EventListener<AnswerToQuestionEvent,
     public QuestionToKeyboardDto execute(AnswerToQuestionEvent event) {
         int answerNo = Integer.parseInt(event.getData().getAnswer().substring(0, 1));
 
-        boolean isCorrect = service.toAnswer(event.getChatId(), answerNo);
-        QuestionToKeyboardDto dto = service.getCurrentQuestion(event.getChatId());
+        boolean isCorrect = sessionService.toAnswer(event.getChatId(), answerNo);
+        QuestionToKeyboardDto dto = quizKitService.getCurrentQuestion(event.getChatId());
         if (dto == null) {
             return QuestionToKeyboardDto.builder().chatId(event.getChatId()).isCorrect(isCorrect).isEnded(true).build();
         }
@@ -46,8 +48,8 @@ public class AnswerEventListener implements EventListener<AnswerToQuestionEvent,
     public BotApiMethod<Message> toBotResponse(QuestionToKeyboardDto response) {
         String correctText = response.getIsCorrect() ? "Правильно \u2705 \n\n" : "Неправильно \u274C \n\n";
         if (response.isEnded()) {
-            ResultStatsDto resultStatsDto = service.getResultInfo(response.getChatId());
-            service.endSession(response.getChatId());
+            ResultStatsDto resultStatsDto = sessionService.getSessionStat(response.getChatId());
+            sessionService.deleteSession(response.getChatId());
 
             return SendMessage.builder()
                     .chatId(response.getChatId().toString())
