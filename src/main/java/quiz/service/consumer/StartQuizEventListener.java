@@ -9,14 +9,14 @@ import quiz.dto.QuestionToKeyboardDto;
 import quiz.event.data.StartQuizData;
 import quiz.event.StartQuizEvent;
 import quiz.utils.KeyboardHelper;
-import quiz.service.QuizService;
+import quiz.service.impl.QuizKitServiceImpl;
 
 
 @Service
 @RequiredArgsConstructor
 public class StartQuizEventListener implements EventListener<StartQuizEvent, QuestionToKeyboardDto> {
 
-    private final QuizService service;
+    private final QuizKitServiceImpl service;
     private final KeyboardHelper keyboardHelper;
 
     @Override

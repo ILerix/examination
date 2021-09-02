@@ -3,6 +3,7 @@ package quiz.utils;
 import org.springframework.stereotype.Component;
 import quiz.dto.QuizKitInfo;
 import quiz.dto.ResultStatsDto;
+import quiz.service.type.Emoji;
 
 import java.util.List;
 
@@ -27,9 +28,11 @@ public class MessageBuilder {
 
     public String buildResultInfo(ResultStatsDto dto) {
         return "Тест окончен\n" +
-                "\u2705 Правильно отвечено: " +
+                Emoji.GREEN_CHECK.getCode() +
+                " Правильно отвечено: " +
                 dto.getCorrectAnswered() + "\n" +
-                "\u274C Неправильно отвечено: " +
+                Emoji.ERROR.getCode() +
+                " Неправильно отвечено: " +
                 dto.getInCorrectAnswered() + "\n";
     }
 

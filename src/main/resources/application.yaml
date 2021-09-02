@@ -4,6 +4,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     username: postgres
     password: sa

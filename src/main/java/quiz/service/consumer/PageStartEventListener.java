@@ -5,16 +5,13 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import quiz.dto.PageInfoDto;
 import quiz.dto.QuizKitInfo;
 import quiz.event.PageStartViewEvent;
-import quiz.service.QuizService;
+import quiz.service.impl.QuizKitServiceImpl;
 import quiz.utils.KeyboardHelper;
 import quiz.utils.MessageBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PageStartEventListener implements EventListener<PageStartViewEvent, PageInfoDto> {
 
-    private final QuizService quizService;
+    private final QuizKitServiceImpl quizService;
     private final KeyboardHelper keyboardHelper;
     private final MessageBuilder messageBuilder;
 
