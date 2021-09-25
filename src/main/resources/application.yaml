@@ -11,3 +11,7 @@ spring:
     password: sa
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/quizdb
+
+telegram:
+  name: ${{BOT_NAME}}
+  token: ${{BOT_TOKEN}}
